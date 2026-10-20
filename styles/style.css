@@ -1,6 +1,265 @@
-* , *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body { margin: 0; min-width: 320px; font-family: Arial, sans-serif; color: #171717; background: #f5f4ef; }
-a { color: inherit; }
-button, input, textarea, select { font: inherit; }
-body{padding:48px}.page{max-width:640px;margin:0 auto}.form{display:grid;gap:20px;padding:32px;background:#fff;border:1px solid #aaa}.field{display:grid;gap:8px}input,textarea,button{width:100%;padding:14px;border:2px solid #171717;border-radius:0;background:#fff}textarea{min-height:150px;resize:vertical}button{background:#d8ff55;cursor:pointer}button:disabled{opacity:.45;cursor:not-allowed}/* TODO hover, focus, focus-visible, user-invalid, valid, placeholder, checked */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  font-family: Arial, sans-serif;
+  color: #171717;
+  background: #f5f4ef;
+  padding: 48px;
+}
+
+a {
+  color: inherit;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+.page {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.form {
+  display: grid;
+  gap: 20px;
+  padding: 32px;
+  background: #fff;
+  border: 1px solid #aaa;
+}
+
+.field {
+  display: grid;
+  gap: 8px;
+}
+
+/* 1. Базовые стили полей */
+input[type="text"],
+input[type="email"],
+textarea {
+  width: 100%;
+  padding: 14px;
+  border: 2px solid #171717;
+  border-radius: 0;
+  background: #fff;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+textarea {
+  min-height: 150px;
+  resize: vertical;
+}
+
+/* 9. Стилизация placeholder (менее заметный, но читаемый) */
+input::placeholder,
+textarea::placeholder {
+  color: #767676;
+  opacity: 1; /* Корректное отображение в Firefox */
+}
+
+/* 2. Состояние :hover для текстовых полей */
+input[type="text"]:hover,
+input[type="email"]:hover,
+textarea:hover {
+  border-color: #555555;
+}
+
+/* 3. Состояния :focus и :focus-visible для клавиатурного фокуса */
+input:focus,
+textarea:focus,
+button:focus {
+  outline: none; /* Скрываем дефолтный outline для мыши */
+}
+
+input:focus-visible,
+textarea:focus-visible,
+button:focus-visible {
+  outline: 3px solid #005fcc;
+  outline-offset: 2px;
+}
+
+/* 4 & 5. Обязательные поля при ошибке (:user-invalid) */
+/* :user-invalid срабатывает только после того, как пользователь повзаимодействовал с полем */
+input[type="text"]:user-invalid,
+input[type="email"]:user-invalid,
+textarea:user-invalid {
+  border-color: #cc0000;
+  background-color: #fff8f8;
+}
+
+/* 6. Настройка :valid (визуальное подтверждение корректности) */
+input[type="text"]:valid,
+input[type="email"]:valid,
+textarea:valid {
+  border-color: #007a00;
+}
+
+/* 7. Оформление кнопок и disabled-состояния */
+button {
+  width: 100%;
+  padding: 14px;
+  border: 2px solid #171717;
+  border-radius: 0;
+  background: #d8ff55;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+button:hover:not(:disabled) {
+  background: #c3e64d;
+}
+
+button:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+button:disabled {
+  background: #e0e0e0;
+  border-color: #aaaaaa;
+  color: #767676;
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* 8. Оформление checked-состояния кастомного checkbox */
+.check {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  position: relative;
+}
+
+/* Скрываем нативный чекбокс визуально, но оставляем для клавиатуры и скринридеров */
+.check input[type="checkbox"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+.custom-checkbox {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #171717;
+  position: relative;
+  background: #fff;
+  transition: background-color 0.2s ease;
+}
+
+.check:hover .custom-checkbox {
+  border-color: #555555;
+}
+
+/* Стилизация галочки при :checked */
+.check input[type="checkbox"]:checked + .custom-checkbox {
+  background: #171717;
+}
+
+.check input[type="checkbox"]:checked + .custom-checkbox::after {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 1px;
+  width: 6px;
+  height: 10px;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+/* Фокус для скрытого чекбокса */
+.check input[type="checkbox"]:focus-visible + .custom-checkbox {
+  outline: 3px solid #005fcc;
+  outline-offset: 2px;
+}
+
+/* Ошибка чекбокса */
+.check input[type="checkbox"]:user-invalid + .custom-checkbox {
+  border-color: #cc0000;
+  background: #fff8f8;
+}
+
+/* Дополнительное задание: Стили для кастомной radio-группы */
+.radio-group {
+  border: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.radio-group legend {
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.radio-options {
+  display: flex;
+  gap: 20px;
+}
+
+.radio-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  position: relative;
+}
+
+/* Доступное скрытие нативного radio */
+.radio-label input[type="radio"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+.custom-radio {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #171717;
+  border-radius: 50%;
+  position: relative;
+  background: #fff;
+  transition: border-color 0.2s ease;
+}
+
+.radio-label:hover .custom-radio {
+  border-color: #555555;
+}
+
+/* Наполнение кастомного radio при :checked */
+.radio-label input[type="radio"]:checked + .custom-radio::after {
+  content: "";
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  width: 6px;
+  height: 6px;
+  background: #171717;
+  border-radius: 50%;
+}
+
+/* Фокус для скрытого radio */
+.radio-label input[type="radio"]:focus-visible + .custom-radio {
+  outline: 3px solid #005fcc;
+  outline-offset: 2px;
+}
