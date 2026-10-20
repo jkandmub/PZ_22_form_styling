@@ -10,33 +10,50 @@
     <main class="page">
       <form class="form">
         <h1>Связаться с нами</h1>
-        <label class="field"
-          ><span>Имя</span
-          ><input
-            type="text"
-            name="name"
-            required
-            placeholder="Ваше имя" /></label
-        ><label class="field"
-          ><span>Email</span
-          ><input
-            type="email"
-            name="email"
-            required
-            placeholder="name@example.com" /></label
-        ><label class="field"
-          ><span>Сообщение</span
-          ><textarea
-            name="message"
-            required
-            placeholder="Напишите сообщение"
-          ></textarea></label
-        ><label class="check"
-          ><input type="checkbox" required /><span
-            >Я согласен на обработку данных</span
-          ></label
-        ><button type="submit">Отправить</button
-        ><button type="button" disabled>Недоступная кнопка</button>
+
+        <!-- Текстовые поля -->
+        <label class="field">
+          <span>Имя</span>
+          <input type="text" name="name" required placeholder="Ваше имя" />
+        </label>
+
+        <label class="field">
+          <span>Email</span>
+          <input type="email" name="email" required placeholder="name@example.com" />
+        </label>
+
+        <label class="field">
+          <span>Сообщение</span>
+          <textarea name="message" required placeholder="Напишите сообщение"></textarea>
+        </label>
+
+        <!-- Дополнительное задание: Кастомная radio-группа -->
+        <fieldset class="radio-group">
+          <legend>Предпочтительный способ связи</legend>
+          <div class="radio-options">
+            <label class="radio-label">
+              <input type="radio" name="contact-method" value="email" checked required />
+              <span class="custom-radio"></span>
+              <span>Email</span>
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="contact-method" value="phone" required />
+              <span class="custom-radio"></span>
+              <span>Телефон</span>
+            </label>
+          </div>
+        </fieldset>
+
+        <!-- Чекбокс согласия -->
+        <label class="check">
+          <input type="checkbox" required />
+          <span class="custom-checkbox"></span>
+          <span>Я согласен на обработку данных</span>
+        </label>
+
+        <!-- Кнопки -->
+        <button type="submit">Отправить</button>
+        <button type="button" disabled>Недоступная кнопка</button>
       </form>
     </main>
   </body>
